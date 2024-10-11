@@ -33,7 +33,7 @@ const Dashboard = ({ token }: { token: string }) => {
 
     const onFinish = async (values: any) => {
         try {
-            const api = await fetch("http://localhost:8080/changepassword", {
+            const api = await fetch("https://xteam-test-backend.vercel.app/changepassword", {
                 method: "PATCH",
                 headers: {
                     "Content-Type": "application/json"
@@ -57,7 +57,7 @@ const Dashboard = ({ token }: { token: string }) => {
     };
 
     const fetchData = async () => {
-        const api = await fetch("http://localhost:8080/contact", {
+        const api = await fetch("https://xteam-test-backend.vercel.app/contact", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json"

@@ -14,7 +14,7 @@ const ContactEditPage = () => {
   const onFinish = async (values: any) => {
     setLoading(true)
     try {
-      const response = await fetch(`http://localhost:8080/contact/edit/${id}`, {
+      const response = await fetch(`https://xteam-test-backend.vercel.app/contact/edit/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ const ContactEditPage = () => {
 
 
   const fetchData = async () => {
-    const api = await fetch(`http://localhost:8080/contact/${id}`,{
+    const api = await fetch(`https://xteam-test-backend.vercel.app/contact/${id}`,{
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
