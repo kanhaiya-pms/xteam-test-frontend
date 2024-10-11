@@ -1,23 +1,27 @@
 "use client";
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const { TextArea } = Input;
 
 const ContactEditPage = () => {
+    const [loading, setLoading] = useState(false)
     const param = useSearchParams()
     const router = useRouter()
     const id = param.get("id")
     const [form] = Form.useForm();
   const onFinish = async (values: any) => {
+    setLoading(true)
     try {
-      const response = await fetch('http://localhost:8080/contact/edit', {
+      const response = await fetch(`http://localhost:8080/contact/edit/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+            reply:values.reply.trim()
+        }),
       });
 
       if (!response.ok) {
@@ -33,6 +37,8 @@ const ContactEditPage = () => {
       message.error('There was an error sending your message. Please try again later.');
       console.log(error);
       
+    } finally {
+        setLoading(false)
     }
   };
 
@@ -51,7 +57,8 @@ const ContactEditPage = () => {
         name: data.name,
         email: data.email,
         number: data.number,
-        comment: data.comment
+        comment: data.comment,
+        reply: data.reply
     })
 
   }
@@ -68,7 +75,7 @@ const ContactEditPage = () => {
         form={form}
         className="w-[500px] p-6 bg-white shadow-md rounded"
       >
-        <h2 className="text-center text-2xl font-bold mb-14 text-blue-700">Contact Us</h2>
+        <h2 className="text-center text-2xl font-bold mb-14 text-blue-700">Contact Us - Reply</h2>
 
         <Form.Item
           name="name"
@@ -113,11 +120,11 @@ const ContactEditPage = () => {
 
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="w-full bg-blue-600 hover:bg-blue-700">
+          <Button loading={loading} type="primary" htmlType="submit" className="w-full bg-blue-600 hover:bg-blue-700">
             Submit
           </Button>
         </Form.Item>
-      <a href='/login' className='text-sm text-blue-300'>Back</a>
+      <div onClick={()=>router.back()} className='text-sm text-blue-300 cursor-pointer'>Back</div>
       </Form>
     </div>
   );

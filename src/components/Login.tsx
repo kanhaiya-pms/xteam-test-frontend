@@ -66,7 +66,7 @@ const LoginForm = () => {
         </Form.Item>
 
         <Form.Item>
-          <Button type="primary" htmlType="submit" className="w-full bg-blue-600 mt-3 hover:bg-blue-700">
+          <Button loading={loading} type="primary" htmlType="submit" className="w-full bg-blue-600 mt-3 hover:bg-blue-700">
             Log In
           </Button>
         </Form.Item>

@@ -14,7 +14,7 @@ const page = () => {
     redirect("/login")
    }
   return (
-    <Dashboard/>
+    <Dashboard token={token.value}/>
   )
 }
 

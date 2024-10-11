@@ -1,31 +1,52 @@
 "use client";
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import { Form, Input, Button, message } from 'antd';
+import { comment } from 'postcss';
 
 const { TextArea } = Input;
 
 const ContactUs = () => {
     const [form] = Form.useForm();
+    const inputRef = useRef(null);
   const onFinish = async (values: any) => {
+    // Object.values(values).map((item)=>{
+    //    const str = item.trim()
+    //    console.log(str);
+       
+    //    if (str.length <= 0) {
+    //     message.error("field is required and only space not allow")
+    //     return 
+    //    }
+    // })
+
+
     try {
       const response = await fetch('http://localhost:8080/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+            name:values.name.trim(),
+            number:values.number,
+            email:values.email,
+            comment:values.comment.trim()
+
+        }),
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
+        console.log("=>",response);
+        // message.error("remove extra space");
+        throw new Error(`remove extra space`);
       }
 
       message.success('Your message has been sent successfully!');
       // Reset the form after successful submission
       form.resetFields();
-    } catch (error) {
-      message.error('There was an error sending your message. Please try again later.');
-      console.log(error);
+    } catch (error: any) {
+      message.error(error.message);
+      console.log(error.message);
       
     }
   };
@@ -44,7 +65,9 @@ const ContactUs = () => {
           name="name"
           rules={[{ required: true, message: 'Please input your name!' }]}
         >
-          <Input placeholder="Name" className="border border-blue-300 rounded" />
+          <Input 
+          placeholder="Name" 
+          className="border border-blue-300 rounded" />
         </Form.Item>
 
         <Form.Item
@@ -54,7 +77,7 @@ const ContactUs = () => {
             { type: 'email', message: 'Please enter a valid email!' }
           ]}
         >
-          <Input placeholder="Email" className="border border-blue-300 rounded" />
+          <Input placeholder="Email (use active email)" className="border border-blue-300 rounded" />
         </Form.Item>
 
         <Form.Item
