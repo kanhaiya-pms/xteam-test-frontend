@@ -1,10 +1,8 @@
 "use client";
 import React from 'react';
-import { Form, Input, Button, Select, message } from 'antd';
-import { useForm } from 'antd/es/form/Form';
+import { Form, Input, Button, message } from 'antd';
 
 const { TextArea } = Input;
-const { Option } = Select;
 
 const ContactUs = () => {
     const [form] = Form.useForm();
@@ -27,6 +25,8 @@ const ContactUs = () => {
       form.resetFields();
     } catch (error) {
       message.error('There was an error sending your message. Please try again later.');
+      console.log(error);
+      
     }
   };
 

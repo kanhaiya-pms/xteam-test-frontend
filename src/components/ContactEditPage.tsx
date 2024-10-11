@@ -1,11 +1,9 @@
 "use client";
 import React, { useEffect } from 'react';
-import { Form, Input, Button, Select, message } from 'antd';
-import { useForm } from 'antd/es/form/Form';
+import { Form, Input, Button, message } from 'antd';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 const { TextArea } = Input;
-const { Option } = Select;
 
 const ContactEditPage = () => {
     const param = useSearchParams()
@@ -33,6 +31,8 @@ const ContactEditPage = () => {
       router.back()
     } catch (error) {
       message.error('There was an error sending your message. Please try again later.');
+      console.log(error);
+      
     }
   };
 
@@ -58,7 +58,7 @@ const ContactEditPage = () => {
 
   useEffect( ()=>{
     fetchData()
-  })
+  },[])
 
   return (
     <div className="flex items-center justify-center h-screen bg-blue-50">

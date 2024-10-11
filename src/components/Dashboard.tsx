@@ -1,8 +1,7 @@
 "use client";
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, message } from 'antd';
 import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
 
 const Dashboard = () => {
     const router = useRouter()
@@ -17,7 +16,9 @@ const Dashboard = () => {
     const handleLogout = () => {
         // Implement logout logic here
         message.success('You have logged out successfully!');
-        Cookies.set('token', "", { expires: 7 });
+        const expires = new Date();
+        expires.setDate(expires.getDate() + 1);
+        document.cookie = `${"ACCESS_TOKEN"}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
         router.replace("/")
     };
 
@@ -68,7 +69,7 @@ const Dashboard = () => {
             title: 'Action',
             dataIndex: '',
             key: '',
-            render: (item:any, items: any)=> <div onClick={()=>router.push(`/edit?id=${items._id}`)}>hii</div>
+            render: (item: any, items: any) => <div onClick={() => router.push(`/edit?id=${items._id}`)}>hii</div>
         },
     ];
 

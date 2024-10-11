@@ -6,7 +6,7 @@ import React from 'react'
 function page() {
     const cookie = cookies()
 
-   const token = cookie.get("token")
+   const token = cookie.get("ACCESS_TOKEN")
    console.log("token",token?.value);
    
 
