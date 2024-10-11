@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Button, Modal, Form, Input, message, Tooltip } from 'antd';
 import { useRouter } from 'next/navigation';
-import { EditTwoTone } from '@ant-design/icons';
+import { CheckCircleOutlined, CheckCircleTwoTone, ClockCircleOutlined, EditTwoTone } from '@ant-design/icons';
 
 const Dashboard = ({ token }: { token: string }) => {
     const router = useRouter()
@@ -91,7 +91,10 @@ const Dashboard = ({ token }: { token: string }) => {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
-            // render: (item: any) => <Tooltip title={item}>{item.slice(0, 10)}</Tooltip>
+            render: (item: any) => {
+               return item=="PENDING"? <Tooltip title={item}><ClockCircleOutlined style={{ color: 'yellow', fontSize: '24px' }} /></Tooltip>:<Tooltip title={item}><CheckCircleOutlined style={{ color: 'green', fontSize: '24px' }} /></Tooltip>
+
+            }
         },
         {
             title: 'Reply',
@@ -103,7 +106,7 @@ const Dashboard = ({ token }: { token: string }) => {
             title: 'Action',
             dataIndex: '',
             key: '',
-            render: (item: any, items: any) => <div className='cursor-pointer' onClick={() => router.push(`/edit?id=${items._id}`)}><EditTwoTone /></div>
+            render: (item: any, items: any) => <div className='cursor-pointer' onClick={() => router.push(`/edit?id=${items._id}`)}><EditTwoTone style={{fontSize: '24px'}} /></div>
         },
     ];
 
