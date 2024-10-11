@@ -6,10 +6,7 @@ import { CheckCircleOutlined, CheckCircleTwoTone, ClockCircleOutlined, EditTwoTo
 
 const Dashboard = ({ token }: { token: string }) => {
     const router = useRouter()
-    const [contacts, setContacts] = useState([
-        { key: 1, name: 'John Doe', email: 'john@example.com', number: '1234567890', comment: 'Hello!', role: 'PENDING' },
-        { key: 2, name: 'Jane Smith', email: 'jane@example.com', number: '0987654321', comment: 'Need assistance.', role: 'APPROVED' },
-    ]);
+    const [contacts, setContacts] = useState([]);
 
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [form] = Form.useForm();
